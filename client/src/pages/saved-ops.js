@@ -41,6 +41,13 @@ export const SavedOps = () => {
                         <div>
                             <p>{opportunity.description}</p>
                         </div>
+                        <div>
+                            <ul>
+                                {opportunity.labels.map((label, index) => (
+                                    <li key={index}>{label}</li>
+                                ))}
+                            </ul>
+                        </div>
                     </li>
                 ))}
             </ul>
