@@ -1,11 +1,21 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
-import { useNavigate } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
+
+const style = {
+    page: "flex h-screen justify-center mt-[3%]",
+    container: "w-[30%] h-[40%] border border-gray px-[3%] rounded-lg my-[2%] mx-[3%]",
+    title: "text-5xl pb-8 pt-11 text-center font-semibold",
+    inputgroup: "",
+    inputarea: "border border-gray pl-3 py-1 mt-5 text-lg rounded-md w-[100%]",
+    submit: "w-[100%] bg-blue-500 p-2 rounded-md mt-8 font-semibold text-white text-xl",
+    registerinstead: "flex flex-row flex justify-center pt-4"
+}
  
 export const Auth = () => {
     return (
-        <div className="auth">
+        <div className={style.page}>
             <Login/>
             <Register/>
         </div>
@@ -61,18 +71,19 @@ const Register = () => {
 
 const Form = ({username, setUsername, password, setPassword, label, onSubmit}) => {
     return (
-        <div className="auth-container">
+        <div className={style.container}>
             <form onSubmit={onSubmit}>
-                <h2>{label}</h2>
-                <div className="form-group">
-                    <label htmlFor="username">Username: </label>
-                    <input type="text" id="username" value={username} onChange={(event) => setUsername(event.target.value)}/>
+                <h2 className={style.title}>{label}</h2>
+                <div className={style.inputgroup}>
+                    <input type="text" className={style.inputarea} id="username" value={username} placeholder="Username"onChange={(event) => setUsername(event.target.value)}/>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="password">Password: </label>
-                    <input type="password" id="password" value={password} onChange={(event) => setPassword(event.target.value)}/>
+                <div className={style.inputgroup}>
+                    <input type="password" className={style.inputarea} id="password" value={password} placeholder="Password" onChange={(event) => setPassword(event.target.value)}/>
                 </div>
-                <button type="submit">{label}</button>
+                {
+                //label == "Login" ? <div className={style.registerinstead}><h2>Don't have an account? </h2><Link to="/home">Sign Up</Link></div> : <div className={style.registerinstead}></div>
+                }
+                <button className={style.submit} type="submit">{label}</button>
             </form>
         </div>
     );

@@ -8,17 +8,21 @@ import {Navbar} from "./components/navbar"
 
 //in route: element is component we want to render, path is a slash because this is home 
 
+const style = {
+  page: "flex flex-col"
+}
+
 function App() {
   return (
-    <div className="App">
+    <div className={style.page}>
       <Router>
-        <Navbar/>
-        <Routes>
+        <div><Navbar/></div>
+        <div><Routes>
           <Route path="/" element={<Home />}/> 
           <Route path="/auth" element={<Auth />}/> 
           <Route path="/create-opp" element={<CreateOpp />}/> 
           <Route path="/saved-ops" element={<SavedOps />}/> 
-        </Routes>
+        </Routes></div>
       </Router>
     </div>
   );
