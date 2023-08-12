@@ -3,11 +3,11 @@ import {useCookies} from 'react-cookie';
 import {Link, useNavigate} from 'react-router-dom';
 
 const style = {
-    navbar: "flex flex-row px-10 pb-10 pt-5 relative flex justify-center",
-    title: "text-4xl absolute left-20",
+    navbar: "flex flex-row px-10 pb-8 pt-5 relative flex justify-center w-full m-0 bg-blue-500 sticky top-0 backdrop-blur-sm text-white font-semibold",
+    title: "text-4xl absolute left-[5%]",
     links: "px-6 pt-2 text-2xl",
     linksdiv: "flex justify-center",
-    authlinks: "absolute right-20 pt-2 text-2xl"
+    authlinks: "absolute right-[5%] pt-2 text-2xl"
 }
 
 export const Navbar = () => {
