@@ -67,13 +67,28 @@ export const Home = () => {
                 {opportunityID, userID}, 
                 {headers: {authorization: cookies.access_token}}
             );
-                setSavedOpportunities(response.data.savedOpportunities);
+            setSavedOpportunities(response.data.savedOpportunities);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const unsaveOpp = async (opportunityID) => {
+        try {
+            const response = await axios.put(
+                "http://localhost:3001/opportunities/unsave", 
+                {opportunityID, userID}, 
+                {headers: {authorization: cookies.access_token}}
+            );
+            setSavedOpportunities(response.data.savedOpportunities);
+            console.log(savedOpportunities);
         } catch (error) {
             console.error(error);
         }
     }
 
     const isOppSaved = (id) => {
+        console.log(savedOpportunities.includes(id));
         return savedOpportunities.includes(id);
     }
 
@@ -92,6 +107,7 @@ export const Home = () => {
 
     return (
         <div className={style.page}> 
+        {            console.log(savedOpportunities)}
             <div className={style.explanation}>
                 <h1 className={style.title}>Opportunities</h1>
                 <h3 className={style.description}>Welcome to your feed, a page full of opportunities posted by students for students primarily in STEM. To find opportunities that fall under specific categories, click the checkboxes below with your desired categories.</h3>
@@ -137,9 +153,8 @@ export const Home = () => {
                         <li key={opportunity._id}>
                             <div className="flex flex-row">
                                 <h2 className="text-3xl font-semibold">{opportunity.name}</h2>                                
-                                <button onClick={() => saveOpp(opportunity._id)} disabled={isOppSaved(opportunity._id)} className={cookies.access_token ? "mx-[2%] px-[1%] text-lg border border-gray rounded-lg" : "hidden"}>
-                                    {isOppSaved(opportunity._id) ? "Saved" : "Save"}
-                                    {console.log(isOppSaved(opportunity._id))}
+                                <button onClick={isOppSaved(opportunity._id) ? () => unsaveOpp(opportunity._id) : () => saveOpp(opportunity._id)} className={cookies.access_token ? "mx-[2%] px-[1%] text-lg border border-gray rounded-lg" : "hidden"}>
+                                    {isOppSaved(opportunity._id) ? "Unsave" : "Save"}
                                 </button> 
                             </div>
                             <div>

@@ -37,6 +37,20 @@ router.put("/", verifyToken, async (req, res) => {
     }
 });
 
+router.put("/unsave", verifyToken, async (req, res) => {
+    try {
+        const opportunity = await OpportunitiesModel.findById(req.body.opportunityID);
+        const user = await UserModel.findById(req.body.userID);
+        user.savedOpportunities = user.savedOpportunities.filter((opp) => {
+            return !opp._id.equals(opportunity._id);
+        });
+        await user.save();
+        res.json({savedOpportunities: user?.savedOpportunities});
+    } catch (error) {
+        res.json(error);
+    }
+});
+
 router.get("/savedOpportunities/ids/:userID", async (req, res) => {
     try {
         const user = await UserModel.findById(req.params.userID);
