@@ -96,12 +96,12 @@ export const Home = () => {
         page: "flex flex-col",
         explanation: "flex justify-center flex-col px-[2%] mt-[1%] mb-[2%] mx-[3%] ",
         title: "text-5xl  py-[1%]",
-        description: "",
+        description: "text-lg",
         pagecontents: "flex flex-row",
         labelchecks: "flex flex-col  pt-[2%] ml-[3%] mr-[1%]",
-        labelcheck: "flex flex-row ml-8",
+        labelcheck: "flex flex-row ml-8 pb-3",
         checktext: "text-lg",
-        checkbox: "px-2",
+        checkbox: "px-2 ",
         opps: "w-[100%] ml-19  pt-[2%] pl-[3%] "
     }
 
@@ -112,9 +112,10 @@ export const Home = () => {
                 <h1 className={style.title}>Opportunities</h1>
                 <h3 className={style.description}>Welcome to your feed, a page full of opportunities posted by students for students primarily in STEM. To find opportunities that fall under specific categories, click the checkboxes below with your desired categories.</h3>
             </div>
-            <hr></hr>
+            <hr className="border-t-2"></hr>
             <div className={style.pagecontents}>
                 <div className={style.labelchecks}>
+                    <h2 className="ml-8 text-2xl mb-6 font-semibold">Categories:</h2>
                     <div className={style.labelcheck}>
                         <div className={style.checkbox}><input type="checkbox" id="label-1" onChange={ (event) => handleLabelChange(event, "High School")}/></div>
                         <label htmlFor="label-1" className={style.checktext}>High School</label>
@@ -147,9 +148,9 @@ export const Home = () => {
             <div className={style.opps}>
             {visibleOpportunities.length == 0 ? 
                 <h2 className={interacted ? "text-2xl" : "hidden"}>No opportunities match your selection.</h2> : 
-                <ul>
+                <ul className="flex flex-col-reverse">
                     {visibleOpportunities.map((opportunity) => (
-                        <div className="border border-gray rounded-lg px-[3%] py-[2%] w-[95%] mb-[1%] bg-white">
+                        <div className="border border-gray border-2 rounded-lg px-[3%] py-[2%] w-[95%] mb-[1%] bg-white ">
                         <li key={opportunity._id}>
                             <div className="flex flex-row">
                                 <h2 className="text-3xl font-semibold">{opportunity.name}</h2>                                
@@ -160,7 +161,7 @@ export const Home = () => {
                             <div>
                                 <ul className="flex flex-row my-[1%]">
                                     {opportunity.labels.map((label, index) => (
-                                        <li className="border border-gray px-2 py-1 rounded-lg mr-2 italic bg-gray-100" key={index}>{label}</li>
+                                        <li className="border border-gray px-2 py-1 rounded-lg mr-2 italic bg-blue-500 text-white font-semibold" key={index}>{label}</li>
                                     ))}
                                 </ul>
                             </div>
