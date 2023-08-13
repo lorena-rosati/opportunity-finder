@@ -24,11 +24,11 @@ export const Navbar = () => {
         <div className={style.navbar}>
             <h1 className={style.title}>OpportuniFIND</h1>
             <Link to="/" className={style.links}>Opportunities</Link>
-            <Link to="/create-opp" className={style.links}>Create Opportunity</Link>
             {!cookies.access_token ? (
                 <Link to="/auth" className={style.authlinks}>Login/Register</Link>
                 ) : (
                 <>
+                    <Link to="/create-opp" className={style.links}>Create Opportunity</Link>
                     <Link to="/saved-ops" className={style.links}>Saved</Link>
                     <button onClick={logout} className={style.authlinks}>Log out</button>
                 </>

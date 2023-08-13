@@ -1,9 +1,12 @@
 import {useState, useEffect} from "react";
 import axios from "axios";
 import {useGetUserID} from "../hooks/useGetUserID";
+import {useCookies} from 'react-cookie';
+
 
 export const SavedOps = () => {
     const [savedOpportunities, setSavedOpportunities] = useState([]);
+    const [cookies, _] = useCookies(["access_token"]);
 
     const userID = useGetUserID();
     useEffect(() => {
@@ -27,8 +30,9 @@ export const SavedOps = () => {
 
 
     return (
-        <div>
-            <h1>Saved Opportunities</h1>
+        <div className="flex h-screen justify-center ">
+            { !cookies.access_token ? <h1 className="text-3xl mt-10 mx-3">You do not have access to this page. Please log in and try again.</h1> :
+            <div><h1>Saved Opportunities</h1>
             <ul>
                 {savedOpportunities.map((opportunity) => (
                     <li key={opportunity._id}>
@@ -50,7 +54,8 @@ export const SavedOps = () => {
                         </div>
                     </li>
                 ))}
-            </ul>
+            </ul></div>
+            }
         </div>
     );
 }

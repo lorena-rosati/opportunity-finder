@@ -62,33 +62,37 @@ export const CreateOpp = () => {
     }
 
     return (
-        <div className="create-opp">
-            <h2>Create Opportunity</h2>
-            <form>
-                <label htmlFor="name">Name:</label>
-                <input type="text" id="name" name="name" onChange={handleChange}/>
-                <label htmlFor="link">Link:</label>
-                <input type="url" id="link" name="link" onChange={handleChange}/>
-                <label htmlFor="description">Description:</label>
-                <textarea type="text" id="description" name="description" onChange={handleChange}></textarea>
+        <div className="flex h-screen justify-center ">
+            {!cookies.access_token ? <h1 className="text-3xl mt-10 mx-3">You do not have access to this page. Please log in and try again.</h1> :
+            <div className="w-[60%] h-[80%] border border-gray p-[3%] mt-[2%]">
+                <h2 className="text-3xl text-center pb-[2%]">Create Opportunity</h2>
+                <form className="flex flex-col">
+                    <label htmlFor="name">Opportunity name:</label>
+                    <input type="text" id="name" name="name" placeholder="Opportunity name"onChange={handleChange}/>
+                    <label htmlFor="link">Link:</label>
+                    <input type="url" id="link" name="link" onChange={handleChange}/>
+                    <label htmlFor="description">Description:</label>
+                    <textarea type="text" id="description" name="description" onChange={handleChange}></textarea>
 
-                <label htmlFor="label-1">High School</label>
-                <input type="checkbox" id="label-1" onChange={ (event) => handleLabelChange(event, "High School")}/>
-                <label htmlFor="label-2">University</label>
-                <input type="checkbox" id="label-2" onChange={ (event) => handleLabelChange(event, "University")}/>
-                <label htmlFor="label-3">STEM</label>
-                <input type="checkbox" id="label-3" onChange={ (event) => handleLabelChange(event, "STEM")}/>
-                <label htmlFor="label-4">Tech</label>
-                <input type="checkbox" id="label-4" onChange={ (event) => handleLabelChange(event, "Tech")}/>
-                <label htmlFor="label-5">Employment</label>
-                <input type="checkbox" id="label-5" onChange={ (event) => handleLabelChange(event, "Employment")}/>
-                <label htmlFor="label-6">Skill-building program</label>
-                <input type="checkbox" id="label-6" onChange={ (event) => handleLabelChange(event, "Skill-building program")}/>
-                <label htmlFor="label-7">Volunteering</label>
-                <input type="checkbox" id="label-7" onChange={ (event) => handleLabelChange(event, "Volunteering")}/>
+                    <label htmlFor="label-1">High School</label>
+                    <input type="checkbox" id="label-1" onChange={ (event) => handleLabelChange(event, "High School")}/>
+                    <label htmlFor="label-2">University</label>
+                    <input type="checkbox" id="label-2" onChange={ (event) => handleLabelChange(event, "University")}/>
+                    <label htmlFor="label-3">STEM</label>
+                    <input type="checkbox" id="label-3" onChange={ (event) => handleLabelChange(event, "STEM")}/>
+                    <label htmlFor="label-4">Tech</label>
+                    <input type="checkbox" id="label-4" onChange={ (event) => handleLabelChange(event, "Tech")}/>
+                    <label htmlFor="label-5">Employment</label>
+                    <input type="checkbox" id="label-5" onChange={ (event) => handleLabelChange(event, "Employment")}/>
+                    <label htmlFor="label-6">Skill-building program</label>
+                    <input type="checkbox" id="label-6" onChange={ (event) => handleLabelChange(event, "Skill-building program")}/>
+                    <label htmlFor="label-7">Volunteering</label>
+                    <input type="checkbox" id="label-7" onChange={ (event) => handleLabelChange(event, "Volunteering")}/>
 
-                <button type="submit" onClick={onSubmit}>Create Opportunity</button>
-            </form>
+                    <button type="submit" onClick={onSubmit}>Create Opportunity</button>
+                </form>
+            </div>
+            }
         </div>
     );
 }

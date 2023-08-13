@@ -10,6 +10,7 @@ export const Home = () => {
     const [savedOpportunities, setSavedOpportunities] = useState([]);
     const [visibleLabels, setVisibleLabels] = useState([]);
     const [visibleOpportunities, setVisibleOpportunities] = useState([]);
+    const [interacted, setInteracted] = useState(false);
     const [cookies, _] = useCookies(["access_token"]);
 
     const userID = useGetUserID();
@@ -20,7 +21,7 @@ export const Home = () => {
             try {
                 const response = await axios.get("http://localhost:3001/opportunities");
                 setOpportunities(response.data);
-                setVisibleOpportunities(opportunities);
+                setVisibleOpportunities(response.data);
             } catch (error) {
                 console.error(error);
             }
@@ -29,11 +30,7 @@ export const Home = () => {
         const fetchSavedOpportunity = async () => {
             try {
                 const response = await axios.get( `http://localhost:3001/opportunities/savedOpportunities/ids/${userID}`);
-                //if (response.data.savedOpportunities !== undefined) {
-                    setSavedOpportunities(response.data.savedOpportunities);
-                // } else {
-                //     setSavedOpportunities([]);
-                // }
+                setSavedOpportunities(response.data.savedOpportunities);
             } catch (error) {
                 console.error(error);
             }
@@ -45,6 +42,7 @@ export const Home = () => {
     }, []);
 
     const handleLabelChange = (event, value) => {
+        setInteracted(true);
         var labels = visibleLabels;
         if (event.target.checked) {
             labels.push(value);
@@ -69,18 +67,14 @@ export const Home = () => {
                 {opportunityID, userID}, 
                 {headers: {authorization: cookies.access_token}}
             );
-            //if (response.data.savedOpportunities !== undefined) {
                 setSavedOpportunities(response.data.savedOpportunities);
-            // } else {
-            //     setSavedOpportunities([]);
-            // }
         } catch (error) {
             console.error(error);
         }
     }
 
     const isOppSaved = (id) => {
-        savedOpportunities.includes(id);
+        return savedOpportunities.includes(id);
     }
 
     const style = {
@@ -136,15 +130,16 @@ export const Home = () => {
                 </div>
             <div className={style.opps}>
             {visibleOpportunities.length == 0 ? 
-                <h2 className="text-2xl">No opportunities match your selection.</h2> : 
+                <h2 className={interacted ? "text-2xl" : "hidden"}>No opportunities match your selection.</h2> : 
                 <ul>
                     {visibleOpportunities.map((opportunity) => (
                         <div className="border border-gray rounded-lg px-[3%] py-[2%] w-[95%] mb-[1%] bg-white">
                         <li key={opportunity._id}>
                             <div className="flex flex-row">
                                 <h2 className="text-3xl font-semibold">{opportunity.name}</h2>                                
-                                <button onClick={() => saveOpp(opportunity._id)} disabled={isOppSaved(opportunity._id)} className="mx-[2%] px-[1%] text-lg border border-gray rounded-lg">
+                                <button onClick={() => saveOpp(opportunity._id)} disabled={isOppSaved(opportunity._id)} className={cookies.access_token ? "mx-[2%] px-[1%] text-lg border border-gray rounded-lg" : "hidden"}>
                                     {isOppSaved(opportunity._id) ? "Saved" : "Save"}
+                                    {console.log(isOppSaved(opportunity._id))}
                                 </button> 
                             </div>
                             <div>

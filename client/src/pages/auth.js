@@ -9,8 +9,8 @@ const style = {
     title: "text-5xl pb-8 pt-11 text-center font-semibold",
     inputgroup: "",
     inputarea: "border border-gray pl-3 py-1 mt-5 text-lg rounded-md w-[100%]",
-    submit: "w-[100%] bg-blue-500 p-2 rounded-md mt-8 font-semibold text-white text-xl",
-    registerinstead: "flex flex-row flex justify-center pt-4"
+    submit: "w-[100%] bg-blue-500 p-2 rounded-md mt-8 font-semibold text-white text-xl"
+    //, registerinstead: "flex flex-row flex justify-center pt-4"
 }
  
 export const Auth = () => {
