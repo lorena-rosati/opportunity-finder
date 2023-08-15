@@ -5,6 +5,7 @@ import {Auth} from './pages/auth';
 import {CreateOpp} from './pages/create-opp';
 import {SavedOps} from './pages/saved-ops';
 import {Navbar} from "./components/navbar"
+import {Footer} from "./components/footer";
 
 //in route: element is component we want to render, path is a slash because this is home 
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="/create-opp" element={<CreateOpp />}/> 
           <Route path="/saved-ops" element={<SavedOps />}/> 
         </Routes></div>
+        <div><Footer/></div>
       </Router>
     </div>
   );

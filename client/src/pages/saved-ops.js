@@ -3,6 +3,16 @@ import axios from "axios";
 import {useGetUserID} from "../hooks/useGetUserID";
 import {useCookies} from 'react-cookie';
 
+const style = {
+    page: "flex flex-col  flex flex-grow min-h-screen",
+    explanation: "flex justify-center flex-col px-[2%] mt-[1%] mb-[1%] mx-[3%] ",
+    title: "text-5xl  py-[1%] text-center",
+    description: "text-lg",
+    pagecontents: "flex flex-row",
+    checkbox: "px-2 ",
+    opps: "w-[100%] ml-19  pt-[2%] pl-[3%]"
+}
+
 
 export const SavedOps = () => {
     const [savedOpportunities, setSavedOpportunities] = useState([]);
@@ -29,33 +39,44 @@ export const SavedOps = () => {
     }, []);
 
 
+
+
     return (
-        <div className="flex h-screen justify-center ">
-            { !cookies.access_token ? <h1 className="text-3xl mt-10 mx-3">You do not have access to this page. Please log in and try again.</h1> :
-            <div><h1>Saved Opportunities</h1>
-            <ul>
-                {savedOpportunities.map((opportunity) => (
-                    <li key={opportunity._id}>
-                        <div className="name">
-                            <h2>{opportunity.name}</h2>
-                        </div>
-                        <div className = "link">
-                            <a href={opportunity.link}>{opportunity.link}</a>
-                        </div>
-                        <div>
-                            <p>{opportunity.description}</p>
-                        </div>
-                        <div>
-                            <ul>
-                                {opportunity.labels.map((label, index) => (
-                                    <li key={index}>{label}</li>
-                                ))}
-                            </ul>
-                        </div>
-                    </li>
-                ))}
-            </ul></div>
+        <div className={style.page}> 
+            <div className={style.explanation}>
+                <h1 className={style.title}>Saved Opportunities</h1>
+            </div>
+            <hr className="border-t-2"></hr>
+            <div className={style.pagecontents}>
+            <div className={style.opps}>
+            {savedOpportunities.length == 0 ? 
+                <h2 className="">No opportunities saved!</h2> : 
+                <ul className="flex flex-col-reverse">
+                    {savedOpportunities.map((opportunity) => (
+                        <div className="border border-gray border-2 rounded-lg px-[3%] py-[2%] w-[96%] mb-[1%] bg-white ">
+                        <li key={opportunity._id}>
+                            <div className="flex flex-row">
+                                <h2 className="text-3xl font-semibold">{opportunity.name}</h2>                                
+                            </div>
+                            <div>
+                                <ul className="flex flex-row my-[1%]">
+                                    {opportunity.labels.map((label, index) => (
+                                        <li className="border border-gray px-2 py-1 rounded-lg mr-2 italic bg-blue-500 text-white font-semibold" key={index}>{label}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                            <div className = "flex flex-row">
+                                <p className="mr-[1%] font-semibold">Link: </p><a className="text-blue-500 italic" href={opportunity.link} target="_blank">{opportunity.link}</a>
+                            </div>
+                            <div>
+                                <p>{opportunity.description}</p>
+                            </div>
+                        </li></div>
+                    ))}
+                </ul>
             }
+            </div>
+            </div>
         </div>
     );
 }

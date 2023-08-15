@@ -93,7 +93,7 @@ export const Home = () => {
     }
 
     const style = {
-        page: "flex flex-col",
+        page: "flex flex-col  flex-grow min-h-screen",
         explanation: "flex justify-center flex-col px-[2%] mt-[1%] mb-[2%] mx-[3%] ",
         title: "text-5xl  py-[1%]",
         description: "text-lg",
@@ -102,12 +102,11 @@ export const Home = () => {
         labelcheck: "flex flex-row ml-8 pb-3",
         checktext: "text-lg",
         checkbox: "px-2 ",
-        opps: "w-[100%] ml-19  pt-[2%] pl-[3%] "
+        opps: "w-[100%] ml-19  pt-[2%] pl-[3%]"
     }
 
     return (
         <div className={style.page}> 
-        {            console.log(savedOpportunities)}
             <div className={style.explanation}>
                 <h1 className={style.title}>Opportunities</h1>
                 <h3 className={style.description}>Welcome to your feed, a page full of opportunities posted by students for students primarily in STEM. To find opportunities that fall under specific categories, click the checkboxes below with your desired categories.</h3>

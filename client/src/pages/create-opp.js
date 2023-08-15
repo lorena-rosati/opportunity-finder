@@ -61,35 +61,56 @@ export const CreateOpp = () => {
         }
     }
 
+    const style = {
+        labelcheck: "flex flex-row pb-1",
+        checkbox: "px-2",
+        checktext: ""
+    }
+
     return (
-        <div className="flex h-screen justify-center ">
+        <div className="flex min-h-screen justify-center flex-grow">
             {!cookies.access_token ? <h1 className="text-3xl mt-10 mx-3">You do not have access to this page. Please log in and try again.</h1> :
-            <div className="w-[60%] h-[80%] border border-gray p-[3%] mt-[2%]">
-                <h2 className="text-3xl text-center pb-[2%]">Create Opportunity</h2>
+            <div className="w-[40%] pt-[3%] text-lg">
+                <h2 className="text-3xl text-center pb-[4%] font-semibold">Create Opportunity</h2>
                 <form className="flex flex-col">
-                    <label htmlFor="name">Opportunity name:</label>
-                    <input type="text" id="name" name="name" placeholder="Opportunity name"onChange={handleChange}/>
-                    <label htmlFor="link">Link:</label>
-                    <input type="url" id="link" name="link" onChange={handleChange}/>
-                    <label htmlFor="description">Description:</label>
-                    <textarea type="text" id="description" name="description" onChange={handleChange}></textarea>
+                    <div className="flex flex-col pb-[2%]"><label htmlFor="name">Opportunity name:</label>
+                    <input type="text" id="name" name="name" className="border border-gray rounded-md mt-[1%] w-[99%] mb-[1%]" placeholder="" onChange={handleChange}/></div>
+                    <div className="flex flex-col pb-[2%]"><label htmlFor="link">Link:</label>
+                    <input type="url" id="link" name="link" className="border border-gray rounded-md mt-[1%] w-[99%] mb-[1%]" onChange={handleChange}/></div>
+                    <div className="flex flex-col pb-[2%]"><label htmlFor="description">Description:</label>
+                    <textarea type="text" id="description" name="description" className="border border-gray rounded-md mt-[1%] w-[99%] mb-[2%]" onChange={handleChange}></textarea></div>
 
-                    <label htmlFor="label-1">High School</label>
-                    <input type="checkbox" id="label-1" onChange={ (event) => handleLabelChange(event, "High School")}/>
-                    <label htmlFor="label-2">University</label>
-                    <input type="checkbox" id="label-2" onChange={ (event) => handleLabelChange(event, "University")}/>
-                    <label htmlFor="label-3">STEM</label>
-                    <input type="checkbox" id="label-3" onChange={ (event) => handleLabelChange(event, "STEM")}/>
-                    <label htmlFor="label-4">Tech</label>
-                    <input type="checkbox" id="label-4" onChange={ (event) => handleLabelChange(event, "Tech")}/>
-                    <label htmlFor="label-5">Employment</label>
-                    <input type="checkbox" id="label-5" onChange={ (event) => handleLabelChange(event, "Employment")}/>
-                    <label htmlFor="label-6">Skill-building program</label>
-                    <input type="checkbox" id="label-6" onChange={ (event) => handleLabelChange(event, "Skill-building program")}/>
-                    <label htmlFor="label-7">Volunteering</label>
-                    <input type="checkbox" id="label-7" onChange={ (event) => handleLabelChange(event, "Volunteering")}/>
 
-                    <button type="submit" onClick={onSubmit}>Create Opportunity</button>
+                    <div className={style.labelcheck}>
+                        <div className={style.checkbox}><input type="checkbox" id="label-1" onChange={ (event) => handleLabelChange(event, "High School")}/></div>
+                        <label htmlFor="label-1" className={style.checktext}>High School</label>
+                    </div>
+                    <div className={style.labelcheck}>
+                        <div className={style.checkbox}><input type="checkbox" id="label-2" onChange={ (event) => handleLabelChange(event, "University")}/></div>
+                        <label htmlFor="label-2" className={style.checktext}>University</label>
+                    </div>
+                    <div className={style.labelcheck}>
+                        <div className={style.checkbox}><input type="checkbox" id="label-3" onChange={ (event) => handleLabelChange(event, "STEM")}/></div>
+                        <label htmlFor="label-3" className={style.checktext}>STEM</label>
+                    </div>
+                    <div className={style.labelcheck}>
+                        <div className={style.checkbox}><input type="checkbox" id="label-4" onChange={ (event) => handleLabelChange(event, "Tech")}/></div>
+                        <label htmlFor="label-4" className={style.checktext}>Tech</label>
+                    </div>
+                    <div className={style.labelcheck}>
+                        <div className={style.checkbox}><input type="checkbox" id="label-5" onChange={ (event) => handleLabelChange(event, "Employment")}/></div>
+                        <label htmlFor="label-5" className={style.checktext}>Employment</label>
+                    </div>
+                    <div className={style.labelcheck}>
+                        <div className={style.checkbox}><input type="checkbox" id="label-6" onChange={ (event) => handleLabelChange(event, "Skill-building program")}/></div>
+                        <label htmlFor="label-6" className={style.checktext}>Skill-building program</label>
+                    </div>
+                    <div className={style.labelcheck}>
+                        <div className={style.checkbox}><input type="checkbox" id="label-7" onChange={ (event) => handleLabelChange(event, "Volunteering")}/></div>
+                        <label htmlFor="label-7" className={style.checktext}>Volunteering</label>
+                    </div>
+
+                    <button type="submit" className="mt-[5%] rounded-lg bg-blue-500 text-white font-semibold py-[1%]" onClick={onSubmit}>Create Opportunity</button>
                 </form>
             </div>
             }
