@@ -24,4 +24,5 @@ const OpportunitiesSchema = new mongoose.Schema({
     }
 });
 
+//opportunities is the collection name, OpportunitiesSchema is the schema for how documents in the collection are structured
 export const OpportunitiesModel = mongoose.model("opportunities", OpportunitiesSchema);

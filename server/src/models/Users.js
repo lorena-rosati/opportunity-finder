@@ -6,4 +6,5 @@ const UserSchema = new mongoose.Schema({
     savedOpportunities: [{ type: mongoose.Schema.Types.ObjectId, ref: "opportunities" }]
 });
 
-export const UserModel = mongoose.model("users", UserSchema); //collection called users
+//users is the collection name, UserSchema is the schema for how documents in the collection are structured
+export const UserModel = mongoose.model("users", UserSchema); 

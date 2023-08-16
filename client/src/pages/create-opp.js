@@ -7,7 +7,7 @@ import {useCookies} from "react-cookie";
 
 export const CreateOpp = () => {
 
-    const [cookies, _] = useCookies(["access_token"]);
+    const [cookies, _] = useCookies(["access_token"]); //don't need to set cookies, just need to access cookies.access_token (would have value of false if user didn't have access privileges)
 
     const userID = useGetUserID();
 
@@ -22,8 +22,11 @@ export const CreateOpp = () => {
     const navigate = useNavigate();
 
     const handleChange = (event) => {
-        const {name, value} = event.target;
-        setOpportunity({...opportunity, [name]: value}); //the key "name" will have a new value of "value"
+        //destructuring assignment
+        //extracts name and value properties from event.target and sets them equal to the constants "name" and "value"
+        const {name, value} = event.target; 
+        //spread operator copies existing properties from opportunity, and then we add the key "name" w/ the value "value"
+        setOpportunity({...opportunity, [name]: value}); 
     }
 
     const handleLabelChange = (event, value) => {
@@ -37,7 +40,7 @@ export const CreateOpp = () => {
     const handleLabelCheck = (value) => {
         const labels = opportunity.labels;
         labels.push(value);
-        setOpportunity({...opportunity, labels}); 
+        setOpportunity({...opportunity, labels}); //sets opportunity to existing value but updates opportunity.labels to be equal to labels
     }
 
     const handleLabelUncheck = (value) => {
@@ -47,15 +50,19 @@ export const CreateOpp = () => {
                 labels.splice(i, 1);
             }
         }
-        setOpportunity({...opportunity, labels});
+        setOpportunity({...opportunity, labels}); //updates opportunity w/ new labels array
     }
 
     const onSubmit = async (event) => {
-        event.preventDefault();
+        event.preventDefault(); //prevents the form from refreshing the page
         try {
-            await axios.post("http://localhost:3001/opportunities", opportunity, {headers: {authorization: cookies.access_token}});
+            //adds new opportunity
+            await axios.post("http://localhost:3001/opportunities", //post request b/c we are creating new document for the opportunity
+                opportunity, 
+                {headers: {authorization: cookies.access_token}} //sending a header w/ the request - request is sending auth token in header to see if authorized
+            );
             alert("Opportunity created");
-            navigate("/");
+            navigate("/"); //navigate to home page
         } catch (error) {
             console.error(error);
         }

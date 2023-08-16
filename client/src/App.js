@@ -7,8 +7,6 @@ import {SavedOps} from './pages/saved-ops';
 import {Navbar} from "./components/navbar"
 import {Footer} from "./components/footer";
 
-//in route: element is component we want to render, path is a slash because this is home 
-
 const style = {
   page: "flex flex-col"
 }

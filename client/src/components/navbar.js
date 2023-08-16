@@ -11,20 +11,21 @@ const style = {
 }
 
 export const Navbar = () => {
-    const [cookies, setCookies] = useCookies(["access_token"]);
-    const navigate = useNavigate();
+    const [cookies, setCookies] = useCookies(["access_token"]); //hook manages cookies, access_token is the cookie we want to manage
+    const navigate = useNavigate(); //accesses router and is used to navigate to other routes
 
     const logout = () => {
-        setCookies("access_token", "");
-        window.localStorage.clear();
-        navigate("/auth");
+        //setCookies() - first param is cookie name, second is cookie value
+        setCookies("access_token", ""); //clears the "access_token" cookie (sets it to an empty string) 
+        window.localStorage.clear();  //clears all local storage
+        navigate("/auth"); //navigates to login/register page (route w/ path = "/auth")
     }
 
     return (
         <div className={style.navbar}>
             <h1 className={style.title}>OpportuniFIND</h1>
             <Link to="/" className={style.links}>Opportunities</Link>
-            {!cookies.access_token ? (
+            {!cookies.access_token ? ( //conditionals depending on if user is logged in / "has access"
                 <Link to="/auth" className={style.authlinks}>Login/Register</Link>
                 ) : (
                 <>

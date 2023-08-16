@@ -16,19 +16,17 @@ const style = {
 
 export const SavedOps = () => {
     const [savedOpportunities, setSavedOpportunities] = useState([]);
-    const [cookies, _] = useCookies(["access_token"]);
+    const [cookies, _] = useCookies(["access_token"]); //don't need to set cookies, just need to access cookies.access_token (would have value of false if user didn't have access privileges)
 
     const userID = useGetUserID();
     useEffect(() => {
+        //using useEffect because our async functions are performing get requests
+        //we only want to get our data on the first render
 
-        const fetchSavedOpportunity = async () => {
+        const fetchSavedOpportunity = async () => { //fetching each saved opportunity by the user
             try {
                 const response = await axios.get( `http://localhost:3001/opportunities/savedOpportunities/${userID}`);
-                //if (response.data.savedOpportunities !== undefined) {
-                    setSavedOpportunities(response.data.savedOpportunities);
-                // } else {
-                //     setSavedOpportunities([]);
-                // }
+                setSavedOpportunities(response.data.savedOpportunities);
             } catch (error) {
                 console.error(error);
             }

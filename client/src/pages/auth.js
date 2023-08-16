@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
-import {Link, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 const style = {
     page: "flex h-screen justify-center mt-[3%]",
@@ -23,26 +23,26 @@ export const Auth = () => {
 }
 
 const Login = () => {
-    const [_, setCookies] = useCookies(["access_token"]);
+    const [_, setCookies] = useCookies(["access_token"]); //don't need to access the value of cookies, just need to set it
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    const navigate = useNavigate();
+    const navigate = useNavigate(); //accesses router and is used to navigate to other routes
 
-    const onSubmit = async (event) => {
-        event.preventDefault();
-        try {
-            const response = await axios.post("http://localhost:3001/auth/login", {
+    const onSubmit = async (event) => { //async function because 
+        event.preventDefault(); //prevents the form from refreshing the page
+        try {  //post request b/c we aren't updating anything, rather, we are verifying credentials (used put usually for updating resources)
+            const response = await axios.post("http://localhost:3001/auth/login", { //sending username and pswd to server to check if valid
                 username, 
                 password,
             });
-            if (response.data.message == "") {
-                setCookies("access_token", response.data.token);
-                window.localStorage.setItem("userID", response.data.userID);
-                navigate("/");
+            if (response.data.message == "") { //if sign in is successful
+                setCookies("access_token", response.data.token);  //sets access token (meaning that user has access / is logged in)
+                window.localStorage.setItem("userID", response.data.userID); //sets user id in local storage
+                navigate("/"); //navigate to home page
             } else {
-                alert(response.data.message);
+                alert(response.data.message); //alert user of what's wrong with their input (why login was unsuccessful)
             }
         } catch (error) {
             console.error(error);
@@ -58,9 +58,12 @@ const Register = () => {
 
     const onSubmit = async (event) => {
         event.preventDefault(); //stops from refreshing the page when we submit
-        try {
-            const response = await axios.post("http://localhost:3001/auth/register", {username, password});
-            alert(response.data.message);
+        try {            //post request b/c we are creating new document for user
+            const response = await axios.post("http://localhost:3001/auth/register", {
+                username, 
+                password
+            });
+            alert(response.data.message); //alert user whether registration was successful
         } catch (error) {
             console.error(error);
         }

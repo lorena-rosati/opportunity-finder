@@ -11,11 +11,13 @@ export const Home = () => {
     const [visibleLabels, setVisibleLabels] = useState([]);
     const [visibleOpportunities, setVisibleOpportunities] = useState([]);
     const [interacted, setInteracted] = useState(false);
-    const [cookies, _] = useCookies(["access_token"]);
+    const [cookies, _] = useCookies(["access_token"]); //don't need to set cookies, just need to access cookies.access_token (would have value of false if user didn't have access privileges)
 
     const userID = useGetUserID();
 
-    useEffect(() => {
+    useEffect(() => { 
+        //using useEffect because our async functions are performing get requests
+        //we only want to get our data on the first render
 
         const fetchOpportunity = async () => {
             try {
@@ -27,7 +29,7 @@ export const Home = () => {
             }
         };
 
-        const fetchSavedOpportunity = async () => {
+        const fetchSavedOpportunity = async () => { //fetching which opportunities (by ids) are saved by the user
             try {
                 const response = await axios.get( `http://localhost:3001/opportunities/savedOpportunities/ids/${userID}`);
                 setSavedOpportunities(response.data.savedOpportunities);
@@ -37,13 +39,14 @@ export const Home = () => {
         };
 
         fetchOpportunity();
-        if (cookies.access_token) fetchSavedOpportunity();
+        if (cookies.access_token) fetchSavedOpportunity(); //saved opportunities are for users who are signed in
 
-    }, []);
+    }, []); //empty array as the dependency of useEffect - only runs on the first render
 
     const handleLabelChange = (event, value) => {
         setInteracted(true);
         var labels = visibleLabels;
+        //modifying labels array to have correct labels given changes in checks
         if (event.target.checked) {
             labels.push(value);
         } else {
@@ -54,6 +57,7 @@ export const Home = () => {
             }
         }
         setVisibleLabels(labels);
+        //set visibleOpportunities to be an array of opportunities which have the labels selected
         var visible = opportunities.filter((opp) => {
             return visibleLabels.every(label => opp.labels.includes(label));
         });
@@ -62,7 +66,7 @@ export const Home = () => {
 
     const saveOpp = async (opportunityID) => {
         try {
-            const response = await axios.put(
+            const response = await axios.put( //put request because we are modifying existing data (of the user's saved opportunities)
                 "http://localhost:3001/opportunities", 
                 {opportunityID, userID}, 
                 {headers: {authorization: cookies.access_token}}
@@ -75,10 +79,10 @@ export const Home = () => {
 
     const unsaveOpp = async (opportunityID) => {
         try {
-            const response = await axios.put(
+            const response = await axios.put( //put request because we are modifying existing data (of the user's saved opportunities)
                 "http://localhost:3001/opportunities/unsave", 
                 {opportunityID, userID}, 
-                {headers: {authorization: cookies.access_token}}
+                {headers: {authorization: cookies.access_token}} //sending a header w/ the request - request is sending auth token in header to see if authorized
             );
             setSavedOpportunities(response.data.savedOpportunities);
             console.log(savedOpportunities);
@@ -88,8 +92,7 @@ export const Home = () => {
     }
 
     const isOppSaved = (id) => {
-        console.log(savedOpportunities.includes(id));
-        return savedOpportunities.includes(id);
+        return savedOpportunities.includes(id); 
     }
 
     const style = {
